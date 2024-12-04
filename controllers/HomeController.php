@@ -9,24 +9,26 @@ class HomeController {
             $userModel = new User($db);
             $user = $userModel->getUserByUsername($_POST['username']);
     
+            // Kiểm tra tài khoản và mật khẩu
             if ($user && password_verify($_POST['password'], $user['password']) && $user['role'] == 0) {
                 session_start();
-                $_SESSION['guest'] = $user;
-                header('Location: index.php?controller=home&action=index');
+                $_SESSION['guest'] = $user; 
+                header('Location: index.php?controller=home&action=index'); // Điều hướng tới danh sách tin tức
                 exit;
             } else {
-                $error = "Không có tài khoản hoặc mật khẩu khả dụng!";
+                $error = "Không Có Tài Khoản Hoặc Mật Khẩu Khả Dụng!";
             }
         }
-        require 'views/home/login.php';
+        require 'views/home/login.php'; 
     }
     
     public function index() {
-        $db = new PDO("mysql:host=localhost;dbname=tintuc", "root", "");
+        $db = new PDO("mysql:host=localhost;dbname=tlunews", "root", "22072004");
         $newsModel = new News($db);
-        $news = $newsModel->getAllNews();
-        require 'views/home/index.php';
+        $news = $newsModel->getAllNews(); // Lấy danh sách tất cả tin tức từ CSDL
+        require 'views/home/index.php'; // Hiển thị giao diện danh sách tin tức
     }
+    
 
     // public function search() {
     //     $db = new PDO("mysql:host=localhost;dbname=tintuc", "root", "");
@@ -37,12 +39,13 @@ class HomeController {
     // }
 
     public function detail() {
-        $db = new PDO("mysql:host=localhost;dbname=tintuc", "root", "");
+        $db = new PDO("mysql:host=localhost;dbname=tlunews", "root", "22072004");
         $newsModel = new News($db);
-        $id = $_GET['id'];
-        $news = $newsModel->getNewsById($id);
-        require 'views/news/detail.php';
+        $id = $_GET['id'] ?? 0;
+        $news = $newsModel->getNewsById($id); // Lấy chi tiết tin tức từ CSDL
+        require 'views/home/detail.php'; // Hiển thị giao diện chi tiết tin tức
     }
+    
 
     public function register() {
         $error = '';
