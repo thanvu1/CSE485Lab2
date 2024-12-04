@@ -30,14 +30,6 @@ class HomeController {
     }
     
 
-    // public function search() {
-    //     $db = new PDO("mysql:host=localhost;dbname=tintuc", "root", "");
-    //     $newsModel = new News($db);
-    //     $query = $_GET['query'];
-    //     $news = $newsModel->searchNews($query);
-    //     require 'views/home/index.php';
-    // }
-
     public function detail() {
         $db = new PDO("mysql:host=localhost;dbname=tlunews", "root", "22072004");
         $newsModel = new News($db);
