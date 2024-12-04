@@ -1,6 +1,11 @@
 <?php
     require_once('../../config/database.php');
     require_once('../../controllers/CategoryController.php');
+
+    $CategoryController = new CategoryController($pdo);
+
+    $categories = $CategoryController->index();
+
 ?>
 
 <!-- views/category.php -->
@@ -10,7 +15,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Danh Mục</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -72,13 +80,16 @@
         .form-container button:hover {
             background-color: #0056b3;
         }
+        a{
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <h1>Quản Lý Danh Mục</h1>
+    <h1 class="text-center text-upercase text-success py-3">Quản Lý Danh Mục</h1>
 
     <!-- Nút để thêm mới danh mục -->
-    <a href="index.php?controller=category&action=create" class="button">Thêm Mới Danh Mục</a>
+    <a href="create.php" class="button">Thêm Mới Danh Mục</a>
 
     <div class="form-container">
         <h2>Danh Sách Danh Mục</h2>
@@ -89,19 +100,26 @@
                 <tr>
                     <th>ID</th>
                     <th>Tên Danh Mục</th>
-                    <th>Thao Tác</th>
+                    <th>Sửa</th>
+                    <th>Xoá</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($categories as $category): ?>
                     <tr>
-                        <td><?php echo $category['id']; ?></td>
-                        <td><?php echo $category['name']; ?></td>
+                        <td><?= $category['id'] ?></td>
+                        <td><?= $category['name']; ?></td>
+                        <td><a href="edit.php?id=<?= $category['id']; ?>"><i class="fa-regular fa-pen-to-square"></i> Sửa</a></td>
                         <td>
-                            <!-- Liên kết để chỉnh sửa và xóa danh mục -->
-                            <a href="index.php?controller=category&action=edit&id=<?php echo $category['id']; ?>" class="button">Sửa</a>
-                            <a href="index.php?controller=category&action=destroy&id=<?php echo $category['id']; ?>" class="button button-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</a>
+                            <form action="delete.php" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="<?= $category['id']; ?>">
+                                <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');" style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                                    Xóa
+                                </button>
+                            </form>
                         </td>
+                        
+                    </tr>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
