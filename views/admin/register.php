@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>Register</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #9face6);
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
-        .login-container {
+        .register-container {
             background: white;
             padding: 30px;
             border-radius: 12px;
@@ -23,7 +23,7 @@
             width: 100%;
             max-width: 400px;
         }
-        .login-container h2 {
+        .register-container h2 {
             text-align: center;
             margin-bottom: 20px;
             color: #333;
@@ -45,12 +45,12 @@
         }
         .form-group input:focus {
             outline: none;
-            border-color: #007bff;
+            border-color: #ff6f61;
         }
         .btn-submit {
             width: 100%;
             padding: 12px;
-            background: #007bff;
+            background: #ff6f61;
             color: white;
             border: none;
             border-radius: 6px;
@@ -59,19 +59,7 @@
             margin-top: 10px;
         }
         .btn-submit:hover {
-            background: #0056b3;
-        }
-        .link-container {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .link-container a {
-            text-decoration: none;
-            color: #007bff;
-            margin: 0 5px;
-        }
-        .link-container a:hover {
-            text-decoration: underline;
+            background: #e85d54;
         }
         .error-message {
             color: red;
@@ -82,12 +70,12 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Admin Login</h2>
+    <div class="register-container">
+        <h2>Create New Account</h2>
         <?php if (isset($error)): ?>
             <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>
-        <form method="POST" action="index.php?controller=admin&action=login">
+        <form method="POST" action="">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -96,13 +84,12 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn-submit">Login</button>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+            <button type="submit" class="btn-submit">Register</button>
         </form>
-        <div class="link-container">
-            <a href="index.php?controller=admin&action=register">Create New Account</a> |
-            <a href="index.php?controller=admin&action=forgotPassword">Forgot Password</a> |
-            <a href="index.php?controller=admin&action=changePassword">Change Password</a>
-        </div>
     </div>
 </body>
 </html>
