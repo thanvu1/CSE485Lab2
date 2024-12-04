@@ -1,5 +1,8 @@
 <?php
 require_once 'models/User.php';
+require_once 'models/Category.php';
+require_once 'models/News.php';
+
 
 class AdminController {
     public function login() {
@@ -21,6 +24,91 @@ class AdminController {
         }
         require 'views/admin/login.php';
     }
+    public function manageNews() {
+        session_start();
+        if (!isset($_SESSION['admin'])) {
+            header('Location: index.php?controller=admin&action=login');
+            exit;
+        }
+    
+        $db = new PDO("mysql:host=localhost;dbname=tlunews", "root", "22072004");
+        $newsModel = new News($db);
+        $news = $newsModel->getAllNews();
+        require 'views/admin/news/index.php';
+    }
+    
+    public function addNews() {
+        session_start();
+        if (!isset($_SESSION['admin'])) {
+            header('Location: index.php?controller=admin&action=login');
+            exit;
+        }
+    
+        $error = '';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $db = new PDO("mysql:host=localhost;dbname=tlunews", "root", "22072004");
+            $newsModel = new News($db);
+    
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $category_id = $_POST['category_id'];
+    
+            if ($newsModel->addNews($title, $content, $category_id)) {
+                header('Location: index.php?controller=admin&action=manageNews');
+            } else {
+                $error = "Failed to add news!";
+            }
+        }
+    
+        require 'views/admin/news/add.php';
+    }
+    
+    public function editNews() {
+        session_start();
+        if (!isset($_SESSION['admin'])) {
+            header('Location: index.php?controller=admin&action=login');
+            exit;
+        }
+    
+        $db = new PDO("mysql:host=localhost;dbname=tlunews", "root", "22072004");
+        $newsModel = new News($db);
+    
+        $id = $_GET['id'] ?? 0;
+        $news = $newsModel->getNewsById($id);
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $category_id = $_POST['category_id'];
+    
+            if ($newsModel->updateNews($id, $title, $content, $category_id)) {
+                header('Location: index.php?controller=admin&action=manageNews');
+            } else {
+                $error = "Failed to update news!";
+            }
+        }
+    
+        require 'views/admin/news/edit.php';
+    }
+    
+    public function deleteNews() {
+        session_start();
+        if (!isset($_SESSION['admin'])) {
+            header('Location: index.php?controller=admin&action=login');
+            exit;
+        }
+    
+        $db = new PDO("mysql:host=localhost;dbname=tlunews", "root", "22072004");
+        $newsModel = new News($db);
+    
+        $id = $_GET['id'] ?? 0;
+        if ($newsModel->deleteNews($id)) {
+            header('Location: index.php?controller=admin&action=manageNews');
+        } else {
+            echo "Failed to delete news!";
+        }
+    }
+    
 
     public function dashboard() {
         session_start();
@@ -28,9 +116,17 @@ class AdminController {
             header('Location: index.php?controller=admin&action=login');
             exit;
         }
-
-        echo "Welcome to the admin dashboard!";
+    
+        $db = new PDO("mysql:host=localhost;dbname=tlunews", "root", "22072004");
+        $newsModel = new News($db);
+        $totalNews = count($newsModel->getAllNews());
+    
+        $categoryModel = new Category($db);
+        $totalCategories = count($categoryModel->getAllCategories());
+    
+        require 'views/admin/dashboard.php';
     }
+    
 
     public function logout() {
         session_start();
