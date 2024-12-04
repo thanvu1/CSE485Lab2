@@ -48,14 +48,14 @@ class AdminController {
             $confirmPassword = $_POST['confirm_password'];
     
             if ($password !== $confirmPassword) {
-                $error = "Passwords do not match!";
+                $error = "Mật Khẩu Không Đúng!";
             } else {
                 $success = $userModel->createUser($username, $password, 0); // role = 0: user
                 if ($success) {
                     header('Location: index.php?controller=admin&action=login');
                     exit;
                 } else {
-                    $error = "Failed to create account!";
+                    $error = "Tạo Tài Khoản Thất Bại!";
                 }
             }
         }
@@ -64,6 +64,7 @@ class AdminController {
 
     public function forgotPassword() {
         $message = '';
+        $error = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db = new PDO("mysql:host=localhost;dbname=tlunews", "root", "22072004");
             $userModel = new User($db);
@@ -76,13 +77,14 @@ class AdminController {
                 $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
                 $stmt = $db->prepare("UPDATE users SET password = ? WHERE username = ?");
                 $stmt->execute([$hashedPassword, $username]);
-                $message = "Password reset successfully!";
+                $message = "Mật Khẩu Được Đặt Lại Thành Công!";
             } else {
-                $message = "User not found!";
+                $error = "Người Dùng không Khả Dụng!";
             }
         }
         require 'views/admin/forgot_password.php';
     }
+    
     
     public function changePassword() {
         session_start();
@@ -109,16 +111,17 @@ class AdminController {
                     $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
                     $stmt = $db->prepare("UPDATE users SET password = ? WHERE username = ?");
                     $stmt->execute([$hashedPassword, $admin['username']]);
-                    $message = "Password changed successfully!";
+                    $message = "Mật Khẩu Đã Được Đổi Thành Công!";
                 } else {
-                    $error = "New passwords do not match!";
+                    $error = "Mật Khẩu Mới Không Khớp!";
                 }
             } else {
-                $error = "Current password is incorrect!";
+                $error = "Mật Khẩu Cũ Không Đúng!";
             }
         }
         require 'views/admin/change_password.php';
     }
+    
     
     
 }

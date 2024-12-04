@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>Guest Login</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #9face6);
+            background: #f3f4f6;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,7 +19,7 @@
             background: white;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
         }
@@ -45,21 +45,26 @@
         }
         .form-group input:focus {
             outline: none;
-            border-color: #007bff;
+            border-color: #28a745;
         }
         .btn-submit {
             width: 100%;
             padding: 12px;
-            background: #007bff;
+            background: #28a745;
             color: white;
             border: none;
             border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
-            margin-top: 10px;
         }
         .btn-submit:hover {
-            background: #0056b3;
+            background: #218838;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 15px;
         }
         .link-container {
             margin-top: 20px;
@@ -73,21 +78,15 @@
         .link-container a:hover {
             text-decoration: underline;
         }
-        .error-message {
-            color: red;
-            font-size: 14px;
-            text-align: center;
-            margin-bottom: 15px;
-        }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Người Quản Trị </h2>
+        <h2>Người Dùng</h2>
         <?php if (isset($error)): ?>
             <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>
-        <form method="POST" action="index.php?controller=admin&action=login">
+        <form method="POST" action="index.php?controller=home&action=login">
             <div class="form-group">
                 <label for="username">Tài Khoản</label>
                 <input type="text" id="username" name="username" required>
@@ -96,12 +95,12 @@
                 <label for="password">Mật Khẩu</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn-submit">Đăng nhập</button>
+            <button type="submit" class="btn-submit">Đăng Nhập</button>
         </form>
         <div class="link-container">
-            <a href="index.php?controller=admin&action=register">Tạo Tài Khoản mới</a> |
-            <a href="index.php?controller=admin&action=forgotPassword">Quên Mật Khẩu?</a> |
-            <a href="index.php?controller=admin&action=changePassword">Đổi Mật Khẩu</a>
+            <a href="index.php?controller=home&action=register">Tạo Tài Khoản Mới</a> |
+            <a href="index.php?controller=home&action=forgotPassword">Quên Mật Khẩu?</a> |
+            <a href="index.php?controller=home&action=changePassword">Đổi Mật Khẩu</a>
         </div>
     </div>
 </body>

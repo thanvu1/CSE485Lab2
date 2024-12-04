@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>Forgot Password</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #9face6);
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
-        .login-container {
+        .forgot-password-container {
             background: white;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
         }
-        .login-container h2 {
+        .forgot-password-container h2 {
             text-align: center;
             margin-bottom: 20px;
             color: #333;
@@ -45,12 +45,12 @@
         }
         .form-group input:focus {
             outline: none;
-            border-color: #007bff;
+            border-color: #ff6f61;
         }
         .btn-submit {
             width: 100%;
             padding: 12px;
-            background: #007bff;
+            background: #ff6f61;
             color: white;
             border: none;
             border-radius: 6px;
@@ -59,19 +59,7 @@
             margin-top: 10px;
         }
         .btn-submit:hover {
-            background: #0056b3;
-        }
-        .link-container {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .link-container a {
-            text-decoration: none;
-            color: #007bff;
-            margin: 0 5px;
-        }
-        .link-container a:hover {
-            text-decoration: underline;
+            background: #e85d54;
         }
         .error-message {
             color: red;
@@ -79,29 +67,47 @@
             text-align: center;
             margin-bottom: 15px;
         }
+        .success-message {
+            color: green;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .back-to-login {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-to-login a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .back-to-login a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Người Quản Trị </h2>
+    <div class="forgot-password-container">
+        <h2>Quên Mật Khẩu</h2>
         <?php if (isset($error)): ?>
             <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>
-        <form method="POST" action="index.php?controller=admin&action=login">
+        <?php if (isset($message)): ?>
+            <p class="success-message"><?php echo htmlspecialchars($message); ?></p>
+        <?php endif; ?>
+        <form method="POST" action="">
             <div class="form-group">
                 <label for="username">Tài Khoản</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <label for="password">Mật Khẩu</label>
-                <input type="password" id="password" name="password" required>
+                <label for="new_password">Mật Khẩu Mới</label>
+                <input type="password" id="new_password" name="new_password" required>
             </div>
-            <button type="submit" class="btn-submit">Đăng nhập</button>
+            <button type="submit" class="btn-submit">Tạo Lại Mật Khẩu</button>
         </form>
-        <div class="link-container">
-            <a href="index.php?controller=admin&action=register">Tạo Tài Khoản mới</a> |
-            <a href="index.php?controller=admin&action=forgotPassword">Quên Mật Khẩu?</a> |
-            <a href="index.php?controller=admin&action=changePassword">Đổi Mật Khẩu</a>
+        <div class="back-to-login">
+            <a href="index.php?controller=home&action=login">Quay Về Trang Đăng Nhập</a>
         </div>
     </div>
 </body>
