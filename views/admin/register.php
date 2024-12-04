@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Đăng kí</title>
     <style>
         body {
             margin: 0;
@@ -71,24 +71,24 @@
 </head>
 <body>
     <div class="register-container">
-        <h2>Create New Account</h2>
+        <h2>Tạo Tài Khoản Mới</h2>
         <?php if (isset($error)): ?>
             <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>
         <form method="POST" action="">
             <div class="form-group">
-                <label for="username">Username</label>
+                <label for="username">Tài Khoản</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Mật Khẩu</label>
                 <input type="password" id="password" name="password" required>
             </div>
             <div class="form-group">
-                <label for="confirm_password">Confirm Password</label>
+                <label for="confirm_password">Xác Nhận Mật Khẩu</label>
                 <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
-            <button type="submit" class="btn-submit">Register</button>
+            <button type="submit" class="btn-submit">Đăng kí</button>
         </form>
     </div>
 </body>

@@ -83,25 +83,25 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Admin Login</h2>
+        <h2>Đăng nhập </h2>
         <?php if (isset($error)): ?>
             <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>
         <form method="POST" action="index.php?controller=admin&action=login">
             <div class="form-group">
-                <label for="username">Username</label>
+                <label for="username">Tài Khoản</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Mật Khẩu</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn-submit">Login</button>
+            <button type="submit" class="btn-submit">Đăng nhập</button>
         </form>
         <div class="link-container">
-            <a href="index.php?controller=admin&action=register">Create New Account</a> |
-            <a href="index.php?controller=admin&action=forgotPassword">Forgot Password</a> |
-            <a href="index.php?controller=admin&action=changePassword">Change Password</a>
+            <a href="index.php?controller=admin&action=register">Tạo Tài Khoản mới</a> |
+            <a href="index.php?controller=admin&action=forgotPassword">Quên Mật Khẩu</a> |
+            <a href="index.php?controller=admin&action=changePassword">Đổi Mật Khẩu</a>
         </div>
     </div>
 </body>
