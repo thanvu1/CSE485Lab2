@@ -1,48 +1,73 @@
 <?php
-
 class News {
-    private $db;
+    private $id;
+    private $title;
+    private $content;
+    private $image;
+    private $createdAt;
+    private $categoryId;
 
-    public function __construct() {
-        $this->db = new PDO('mysql:host=localhost;dbname=tintuc', 'root', '');
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Constructor
+    public function __construct($id, $title, $content, $image, $createdAt, $categoryId) {
+        $this->id = $id;
+        $this->title = $title;
+        $this->content = $content;
+        $this->image = $image;
+        $this->createdAt = $createdAt;
+        $this->categoryId = $categoryId;
     }
 
-    public function getAll() {
-        $stmt = $this->db->query("
-            SELECT news.*, categories.name AS category_name 
-            FROM news 
-            LEFT JOIN categories ON news.category_id = categories.id
-            ORDER BY news.created_at DESC
-        ");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Getter và Setter cho $id
+    public function getId() {
+        return $this->id;
     }
 
-    public function getById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM news WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function addNews($title, $content, $image, $category_id) {
-        $stmt = $this->db->prepare("
-            INSERT INTO news (title, content, image, created_at, category_id) 
-            VALUES (?, ?, ?, NOW(), ?)
-        ");
-        $stmt->execute([$title, $content, $image, $category_id]);
+    // Getter và Setter cho $title
+    public function getTitle() {
+        return $this->title;
     }
 
-    public function updateNews($id, $title, $content, $image, $category_id) {
-        $stmt = $this->db->prepare("
-            UPDATE news 
-            SET title = ?, content = ?, image = ?, category_id = ? 
-            WHERE id = ?
-        ");
-        $stmt->execute([$title, $content, $image, $category_id, $id]);
+    public function setTitle($title) {
+        $this->title = $title;
     }
 
-    public function deleteNews($id) {
-        $stmt = $this->db->prepare("DELETE FROM news WHERE id = ?");
-        $stmt->execute([$id]);
+    // Getter và Setter cho $content
+    public function getContent() {
+        return $this->content;
+    }
+
+    public function setContent($content) {
+        $this->content = $content;
+    }
+
+    // Getter và Setter cho $image
+    public function getImage() {
+        return $this->image;
+    }
+
+    public function setImage($image) {
+        $this->image = $image;
+    }
+
+    // Getter và Setter cho $createdAt
+    public function getCreatedAt() {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt($createdAt) {
+        $this->createdAt = $createdAt;
+    }
+
+    // Getter và Setter cho $categoryId
+    public function getCategoryId() {
+        return $this->categoryId;
+    }
+
+    public function setCategoryId($categoryId) {
+        $this->categoryId = $categoryId;
     }
 }

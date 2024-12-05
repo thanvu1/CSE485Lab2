@@ -1,10 +1,10 @@
 <?php
-
+require_once APP_ROOT.'/services/NewsService.php';
 class NewsController {
     public function index() {
-        $newsModel = new News();
-        $newsList = $newsModel->getAll();
-        include 'views/admin/news/index.php';
+        $newsService = new NewsService();
+        $news = $newsService->getAllNews();
+        include APP_ROOT . '/views/admin/news/index.php';
     }
 
     public function add() {
