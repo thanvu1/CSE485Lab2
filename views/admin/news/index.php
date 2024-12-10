@@ -11,13 +11,14 @@
 <body>
 <div class="container">
     <h1 class="text-center text-uppercase text-success my-3">Danh sách tin tức</h1>
-    <a href="/tlunews/admin/news/add" class="btn btn-primary">Thêm tin tức</a>
+    <a href="<?= DOMAIN . '/views/admin/news/add.php';?>" class="btn btn-primary">Thêm tin tức</a>
     <table class="table table-bordered">
         <thead>
         <tr>
             <th>ID</th>
             <th>Tiêu đề</th>
             <th>Danh mục</th>
+            <th>Ảnh</th>
             <th>Ngày tạo</th>
             <th>Hành động</th>
         </tr>
@@ -28,10 +29,11 @@
                 <td><?= $new->getId(); ?></td>
                 <td><?= $new->getTitle(); ?></td>
                 <td><?= $new->getCategoryId(); ?></td>
+                <td><?= $new->getImage(); ?></td>
                 <td><?= $new->getCreatedAt(); ?></td>
                 <td>
-                    <a href="/tlunews/admin/news/edit/<?= $new['id'] ?>" class="btn btn-warning">Sửa</a>
-                    <a href="/tlunews/admin/news/delete/<?= $new['id'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');">Xóa</a>
+                    <a href="<?= DOMAIN . '/views/admin/news/edit.php?id=' .$new->getId() ?>" class="btn btn-warning">Sửa</a>
+                    <a  class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?');">Xóa</a>
                 </td>
             </tr>
         <?php endforeach; ?>
